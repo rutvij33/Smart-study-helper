@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Study Helper</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>📚 AI Study Helper</h1>
+    <button id="themeBtn" class="icon-btn" aria-label="Toggle dark/light mode">🌙</button>
+  </header>
+
+  <main>
+    <!-- Settings: API key is stored only in this browser (localStorage) -->
+    <details class="card" id="settings">
+      <summary>⚙️ Settings</summary>
+      <label>Gemini API key
+        <input type="password" id="apiKey" placeholder="Paste your free API key" autocomplete="off">
+      </label>
+      <label>Model
+        <input type="text" id="model" value="gemini-2.5-flash">
+      </label>
+      <button id="saveSettings">Save settings</button>
+      <small>Your key never leaves your browser except to call Google's API.</small>
+    </details>
+
+    <!-- Input -->
+    <section class="card">
+      <h2>Your notes or topic</h2>
+      <textarea id="notes" rows="8" maxlength="6000" placeholder="Paste class notes or type a topic, e.g. 'Photosynthesis'"></textarea>
+      <div class="row between">
+        <small id="counter">0 / 6000</small>
+        <small id="warn" class="error"></small>
+      </div>
+      <div class="row">
+        <label>Style
+          <select id="style">
+            <option value="simple and clear">Normal</option>
+            <option value="Explain like I am 10">Explain like I am 10</option>
+            <option value="exam-focused with key points and definitions">Exam-focused</option>
+            <option value="detailed and in-depth">Detailed</option>
+          </select>
+        </label>
+        <label>Difficulty
+          <select id="difficulty">
+            <option>easy</option>
+            <option selected>medium</option>
+            <option>hard</option>
+          </select>
+        </label>
+        <button id="generateBtn">✨ Generate</button>
+      </div>
+      <div id="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <!-- Results -->
+    <section class="card hidden" id="results">
+      <div class="tabs">
+        <button class="tab active" data-tab="summary">Summary</button>
+        <button class="tab" data-tab="quiz">Quiz</button>
+        <button class="tab" data-tab="cards">Flashcards</button>
+      </div>
+
+      <div class="panel" id="tab-summary">
+        <p id="summaryText"></p>
+        <div class="row">
+          <button id="copyBtn">📋 Copy</button>
+          <button id="downloadBtn">⬇️ Download .txt</button>
+          <button id="speakBtn">🔊 Read aloud</button>
+        </div>
+      </div>
+
+      <div class="panel hidden" id="tab-quiz"><div id="quiz"></div></div>
+
+      <div class="panel hidden" id="tab-cards">
+        <p><small>Click a card to flip it.</small> <strong id="knownCount"></strong></p>
+        <div id="cards" class="grid"></div>
+      </div>
+    </section>
+
+    <!-- History -->
+    <section class="card">
+      <div class="row between">
+        <h2>History</h2>
+        <button id="clearHistory" class="danger">🗑 Clear</button>
+      </div>
+      <ul id="history"></ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
